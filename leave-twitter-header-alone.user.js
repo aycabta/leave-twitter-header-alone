@@ -53,7 +53,7 @@
               "}");
 
     function resizeHeader() {
-        var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy--large')[0];
+        var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy')[0];
         var profileCanopyHeader = document.getElementsByClassName('ProfileCanopy-header')[0];
         var height = document.querySelector('.ProfileCanopy-headerBg img').clientHeight;
         profileCanopyLarge.style.height = height + 'px';
