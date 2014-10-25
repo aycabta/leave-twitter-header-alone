@@ -32,11 +32,25 @@
               "    border-bottom: 0px !important;" +
               "}");
 
-    setTimeout(function() {
-        var header = document.getElementsByClassName('ProfileCanopy')[0];
-        var headerClone = header.cloneNode(true);
-        header.parentNode.replaceChild(headerClone, header);
-    }, 500);
+    beStylish(".ProfileCanopy-headerBg {" +
+              "    padding-top: 0px !important;" +
+              "}");
+    beStylish(".ProfileCanopy-headerBg img {" +
+              "    position: static !important;" +
+              "}");
+    beStylish("#page-container {" +
+              "    padding-top: 0px !important;" +
+              "}");
+    beStylish(".ProfileCanopy.is-locked .ProfileCanopy-inner {" +
+              "    position: static !important;" +
+              "    top: auto !important;" +
+              "    -webkit-transform: none !important;" +
+              "    transform: none !important;" +
+              "    width: auto !important;" +
+              "}");
+    beStylish(".ProfileCanopy-header {" +
+              "    margin-top: 0px !important;" +
+              "}");
 
     function resizeHeader() {
         var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy--large')[0];
