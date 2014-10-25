@@ -23,7 +23,7 @@
         }
         sheet.insertRule(str.replace(/\n/g, ""), sheet.cssRules.length);
     }
-    
+
     beStylish(".topbar.js-topbar {" +
               "    position: absolute !important;" +
               "    border-bottom: 0px !important;" +
@@ -37,7 +37,7 @@
         var headerClone = header.cloneNode(true);
         header.parentNode.replaceChild(headerClone, header);
     }, 500);
-    
+
     function resizeHeader() {
         var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy--large')[0];
         var profileCanopyHeader = document.getElementsByClassName('ProfileCanopy-header')[0];
