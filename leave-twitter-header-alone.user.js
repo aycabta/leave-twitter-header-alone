@@ -24,6 +24,11 @@
         sheet.insertRule(str.replace(/\n/g, ""), sheet.cssRules.length);
     }
 
+    var headerImage = document.querySelector('.ProfileCanopy-headerBg img');
+    var globalNavHeight = document.getElementsByClassName('global-nav')[0].clientHeight;
+    var headerImageHeight = (headerImage && headerImage.clientHeight > 0) ? headerImage.clientHeight : 0;
+    var hasHeaderImage = headerImageHeight > 0;
+    var profileCanopyHeight = globalNavHeight + headerImageHeight;
     beStylish(".topbar.js-topbar {" +
               "    position: absolute !important;" +
               "    border-bottom: 0px !important;" +
@@ -37,10 +42,13 @@
               "}");
     beStylish(".ProfileCanopy-headerBg img {" +
               "    position: static !important;" +
+              "    margin-top: " + globalNavHeight + "px !important;" +
               "}");
-    beStylish("#page-container {" +
-              "    padding-top: 0px !important;" +
-              "}");
+    if (hasHeaderImage) {
+        beStylish("#page-container {" +
+                  "    padding-top: 0px !important;" +
+                  "}");
+    }
     beStylish(".ProfileCanopy.is-locked .ProfileCanopy-inner {" +
               "    position: static !important;" +
               "    top: auto !important;" +
@@ -52,12 +60,13 @@
               "    margin-top: 0px !important;" +
               "}");
 
-    function resizeHeader() {
-        var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy')[0];
-        var profileCanopyHeader = document.getElementsByClassName('ProfileCanopy-header')[0];
-        var height = document.querySelector('.ProfileCanopy-headerBg img').clientHeight;
-        profileCanopyLarge.style.height = height + 'px';
-        profileCanopyHeader.style.height = height + 'px';
+    var resizeHeader = function() {
+        if (hasHeaderImage) {
+            var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy')[0];
+            var profileCanopyHeader = document.getElementsByClassName('ProfileCanopy-header')[0];
+            profileCanopyLarge.style.height = profileCanopyHeight + 'px';
+            profileCanopyHeader.style.height = profileCanopyHeight + 'px';
+        }
     }
     resizeHeader();
     window.onresize = resizeHeader;
