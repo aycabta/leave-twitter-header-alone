@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name       Leave Twitter Header Alone
 // @namespace  https://twitter.com/BarackObama
-// @version    0.2.1
+// @version    0.2.2
 // @description Disable Twitter header chasing
 // @include    /^https:\/\/twitter\.com\/[a-zA-Z0-9_]+
 // @copyright  2014+, Code Ass
