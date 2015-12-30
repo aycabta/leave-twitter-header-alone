@@ -24,51 +24,66 @@
         sheet.insertRule(str.replace(/\n/g, ""), sheet.cssRules.length);
     }
 
-    var headerImage = document.querySelector('.ProfileCanopy-headerBg img');
-    var globalNavHeight = document.getElementsByClassName('global-nav')[0].clientHeight;
-    var headerImageHeight = (headerImage && headerImage.clientHeight > 0) ? headerImage.clientHeight : 0;
-    var hasHeaderImage = headerImageHeight > 0;
-    var profileCanopyHeight = globalNavHeight + headerImageHeight;
-    beStylish(".topbar.js-topbar {" +
-              "    position: absolute !important;" +
-              "    border-bottom: 0px !important;" +
-              "}");
-    beStylish(".global-nav {" +
-              "    border-bottom: 0px !important;" +
-              "}");
+    function bigChange() {
+        var globalNavHeight = document.getElementsByClassName('global-nav')[0].clientHeight;
+        beStylish(".topbar.js-topbar {" +
+                  "    position: absolute !important;" +
+                  "    border-bottom: 0px !important;" +
+                  "}");
+        beStylish(".global-nav {" +
+                  "    border-bottom: 0px !important;" +
+                  "}");
 
-    beStylish(".ProfileCanopy-headerBg {" +
-              "    padding-top: 0px !important;" +
-              "}");
-    beStylish(".ProfileCanopy-headerBg img {" +
-              "    position: static !important;" +
-              "    margin-top: " + globalNavHeight + "px !important;" +
-              "}");
-    if (hasHeaderImage) {
+        beStylish(".ProfileCanopy-headerBg {" +
+                  "    padding-top: 0px !important;" +
+                  "}");
+        beStylish(".ProfileCanopy-headerBg img {" +
+                  "    position: static !important;" +
+                  "    margin-top: " + globalNavHeight + "px !important;" +
+                  "}");
+        beStylish(".ProfileCanopy.is-locked .ProfileCanopy-inner {" +
+                  "    position: static !important;" +
+                  "    top: auto !important;" +
+                  "    -webkit-transform: none !important;" +
+                  "    transform: none !important;" +
+                  "    width: auto !important;" +
+                  "}");
+        beStylish(".ProfileCanopy-header {" +
+                  "    margin-top: 0px !important;" +
+                  "}");
+    }
+
+    function greatCheck() {
+        var headerImage = document.querySelector('.ProfileCanopy-headerBg img');
+        if (headerImage === null) {
+            /* not user timeline */
+            bigChange();
+            return;
+        }
+        var headerImageClass = headerImage.attributes['class'];
+        if (!(headerImageClass !== undefined && headerImageClass.value == 'u-hidden') && !(headerImage.clientHeight > 0)) {
+            /* has header image, but didn't load yet */
+            setTimeout(greatCheck, 1000);
+            return;
+        }
         beStylish("#page-container {" +
                   "    padding-top: 0px !important;" +
                   "}");
+        bigChange();
+        resizeHeader();
     }
-    beStylish(".ProfileCanopy.is-locked .ProfileCanopy-inner {" +
-              "    position: static !important;" +
-              "    top: auto !important;" +
-              "    -webkit-transform: none !important;" +
-              "    transform: none !important;" +
-              "    width: auto !important;" +
-              "}");
-    beStylish(".ProfileCanopy-header {" +
-              "    margin-top: 0px !important;" +
-              "}");
 
-    var resizeHeader = function() {
-        if (hasHeaderImage) {
-            var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy')[0];
-            var profileCanopyHeader = document.getElementsByClassName('ProfileCanopy-header')[0];
-            profileCanopyLarge.style.height = profileCanopyHeight + 'px';
-            profileCanopyHeader.style.height = profileCanopyHeight + 'px';
-        }
+    function resizeHeader() {
+        var headerImage = document.querySelector('.ProfileCanopy-headerBg img');
+        var profileCanopyLarge = document.getElementsByClassName('ProfileCanopy')[0];
+        var profileCanopyHeader = document.getElementsByClassName('ProfileCanopy-header')[0];
+        var globalNavHeight = document.getElementsByClassName('global-nav')[0].clientHeight;
+        var profileCanopyHeight = globalNavHeight + ((headerImage.clientHeight > 0) ? headerImage.clientHeight : 130);
+        profileCanopyLarge.style.height = profileCanopyHeight + 'px';
+        profileCanopyHeader.style.height = profileCanopyHeight + 'px';
     }
-    resizeHeader();
+
+    greatCheck();
     window.onresize = resizeHeader;
 })();
 
